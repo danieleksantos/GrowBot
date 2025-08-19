@@ -1,0 +1,31 @@
+.rootLayout {
+    padding: 30px 64px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; 
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        img {
+        width: 150px;
+        }
+    }
+
+    .main {
+        flex:1;
+        overflow: hidden;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 133, 51, .2);
+    color: #212a42;
+}
+

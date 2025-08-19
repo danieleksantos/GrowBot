@@ -1,16 +1,13 @@
 * {
     font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgb(255, 133, 51, .2);
-    color: #212a42;
-    display: flex;
-    justify-content: center;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 p {
@@ -18,7 +15,7 @@ p {
     font-style: 14px;
 }
 
-.app {
+.chatPage {
     width: 80vw;
     margin: 10vw auto;
     min-height: 80vh;
@@ -79,11 +76,12 @@ p {
 }
 
 .answer {
-    padding: 13px 14px;
+    padding: 15px 30px;
     border: 1px solid #cacaca;
     background-color: #FFF;
     margin: 5px;
     font-weight: 200;
     font-size: 15px;
+    line-height: 1.5;
     border-radius: 6px;
 }

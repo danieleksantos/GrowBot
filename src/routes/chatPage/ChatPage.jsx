@@ -1,10 +1,10 @@
   import { useState } from "react"
   import ReactMarkdown from "react-markdown";
-  import "./index.css"
+  import "./chatPage.css"
   import { ChatSession } from "@google/generative-ai"
 
 
-  const App = () => {
+  const ChatPage = () => {
     const [ value, setValue ] = useState ("")
     const [error, setError] = useState("")
     const [chatHistory, setChatHistory] = useState([])
@@ -63,7 +63,7 @@
     }
 
     return (
-      <div className="app">
+      <div className="chatPage">
         <p> O que você gostaria de saber? 
           <button className="surprise" onClick={surprise} disabled={!chatHistory}>Surpreenda-me</button>
         </p>
@@ -92,5 +92,5 @@
     )
   }
 
-  export default App
+  export default ChatPage
   
