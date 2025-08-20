@@ -1,18 +1,35 @@
-  import { useState } from "react"
+  import { useEffect, useState } from "react"
   import ReactMarkdown from "react-markdown";
   import "./chatPage.css"
-  import { ChatSession } from "@google/generative-ai"
-
+  import { useAuth } from "@clerk/clerk-react";
+  import { useNavigate } from "react-router-dom";
 
   const ChatPage = () => {
+    
+    const {userId, isLoaded} = useAuth()
+    const navigate = useNavigate()
     const [ value, setValue ] = useState ("")
     const [error, setError] = useState("")
     const [chatHistory, setChatHistory] = useState([])
 
+    useEffect(() => {
+        if (isLoaded && !userId) {
+            navigate("/sign-in");
+        }
+    },[isLoaded, userId, navigate])
+
+    if(!isLoaded) return "Loading...";
+
     const surpriseOptions = [
       'Preciso fazer graduação para atuar como desenvolvedor?',
       'Qual é a média salarial de um dev júnior no Brasil?',
-      'Qual a linguagem de programação mais utilizada no mundo?'
+      'Qual a linguagem de programação mais utilizada no mundo?',
+      'Quais são as principais diferenças entre as carreiras de front-end, back-end e full-stack?',
+      'Devo focar em uma linguagem de programação específica ou aprender várias?',
+      'Qual a importância de um portfólio para um desenvolvedor júnior?',
+      'É melhor buscar um estágio, um programa de trainee ou uma vaga júnior diretamente?',
+      'Devo investir em cursos online, bootcamps ou uma graduação formal?',
+      'Como posso me manter atualizado com as novas tecnologias e tendências do mercado?'
     ]
 
     const surprise = () => {
