@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import ReactMarkdown from "react-markdown";
 import "./chatPage.css";
 import { useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
+import ChatHistory from "../../components/chatHistory/ChatHistory";
+import ChatInput from "../../components/chatInput/ChatInput";
 
 const ChatPage = () => {
     const { userId, isLoaded } = useAuth();
@@ -10,6 +11,7 @@ const ChatPage = () => {
     const [value, setValue] = useState("");
     const [error, setError] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
+    const [isLoadingAnswerAPI, setIsLoadingAnswerAPI] = useState(false);
 
     const chatEndRef = useRef(null);
 
@@ -47,12 +49,23 @@ const ChatPage = () => {
             setError("Por favor, faça uma pergunta!");
             return;
         }
+
+        // 1. Adiciona a pergunta do usuário ao histórico imediatamente
+        setChatHistory(oldChatHistory => [...oldChatHistory, {
+            role: "user",
+            parts: [{ text: value }]
+        }]);
+
+        setIsLoadingAnswerAPI(true);
+        const userMessage = value;
+        setValue("");
+
         try {
             const options = {
                 method: 'POST',
                 body: JSON.stringify({
                     history: chatHistory,
-                    message: value
+                    message: userMessage
                 }),
                 headers: {
                     'Content-Type': 'application/json'
@@ -60,19 +73,18 @@ const ChatPage = () => {
             };
             const response = await fetch('http://localhost:8000/gemini', options);
             const data = await response.text();
+            
+            // 2. Adiciona a resposta da IA após a requisição
             setChatHistory(oldChatHistory => [...oldChatHistory, {
-                role: "user",
-                parts: [{ text: value }]
-            },
-            {
                 role: "model",
                 parts: [{ text: data }]
-            }
-            ]);
-            setValue("");
+            }]);
+            
         } catch (error) {
             console.error(error);
             setError("Algo deu errado! Tente novamente mais tarde!");
+        } finally {
+            setIsLoadingAnswerAPI(false);
         }
     };
 
@@ -84,36 +96,17 @@ const ChatPage = () => {
 
     return (
         <div className="chatPage">
-            <div className="search-result">
-                {chatHistory.map((chatItem, _index) => (
-                    <div key={_index}>
-                        <div className="wrapper">
-                            <div ref={chatEndRef} />
-                            <div className={`answer ${chatItem.role === 'user' ? 'user-message' : 'bot-message'}`}> 
-                                <strong>{chatItem.role === 'user' ? 'Você' : 'GrowBot'}:</strong>
-                                <ReactMarkdown>
-                                    {(chatItem.parts && chatItem.parts.length > 0) ? chatItem.parts[0].text : 'Resposta vazia'}
-                                </ReactMarkdown>
-                            </div>
-                        </div>
-                    </div>
-                ))}       
-            </div>
+            <ChatHistory chatHistory={chatHistory} chatEndRef={chatEndRef} isLoadingAnswerAPI={isLoadingAnswerAPI} />
             
-            <p className="question-surprise">
-                O que mais você gostaria de saber?
-                <button className="surprise" onClick={surprise} disabled={!chatHistory}>Surpreenda-me</button>
-            </p>
-            <div className="input-container">
-                <input
-                    value={value}
-                    placeholder="O que é JavaScript?"
-                    onChange={(e) => setValue(e.target.value)}
-                />
-                {!error && <button onClick={getResponse}>Perguntar</button>}
-                {error && <button onClick={clear}>Limpar</button>}
-            </div>
-            {error && <p>{error}</p>}
+            <ChatInput 
+                value={value}
+                setValue={setValue}
+                error={error}
+                getResponse={getResponse}
+                clear={clear}
+                surprise={surprise}
+                isLoadingAnswerAPI={isLoadingAnswerAPI}
+            />
         </div>
     );
 };
