@@ -70,7 +70,7 @@ const ChatInput = ({
                 </div>
             </div>
             {isLoadingAnswerAPI && <p className="loading-message">Carregando...</p>}
-            {error && <p>{error}</p>}
+            {error && <p className='error-input-empty'>{error}</p>}
         </>
     );
 };

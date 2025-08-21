@@ -3,15 +3,21 @@ body {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(255, 133, 51, .2);
+    background-color: #f16d1d;
     color: #212a42;
 }
 
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 10px 64px;
+}
 .rootLayout {
-    padding: 30px 64px;
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 .rootLayout header {
@@ -29,7 +35,7 @@ body {
 }
 
 @media screen and (max-width: 1020px) {
-    .rootLayout {
-        padding: 25px;
+    .rootLayout header {
+        padding: 12px 20px;
     }
 }

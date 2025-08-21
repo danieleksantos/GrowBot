@@ -16,6 +16,7 @@
     justify-content: center;
     gap: 16px;
     text-align: center;
+    padding: 0 64px;
 }
 
 .homepage .right {
@@ -24,11 +25,13 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    padding: 0 64px;
+
 }
 
 .homepage .left h1 {
     font-size: 100px;
-    background: linear-gradient(to right, #ff8533, #212a42);
+    background: linear-gradient(to right, #212a42, #000);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -41,11 +44,12 @@
 .homepage .left p {
     font-size: 14px;
     font-weight: 400;
+    color: #000;
 }
 
 .homepage .left .link-action {
     padding: 15px 25px;
-    background-color: #ff8533;
+    background-color: #212a42;
     color: #FFFFFF;
     border-radius: 20px;
     font-size: 14px;
@@ -56,7 +60,7 @@
 }
 
 .homepage .left .link-action:hover {
-    background-color: hsl(24, 100%, 60%, 90%);
+    background-color: hsl(224, 33%, 19%, 90%);
     color: #FFFFFF;
 }
 
@@ -99,6 +103,7 @@
 
 .homepage .orbital {
     position: absolute;
+    top: 0;
     left: 0;
     opacity: 0.6;
     animation: 100s linear infinite rotateOrbital;
@@ -124,7 +129,7 @@
 
 .homepage .terms p {
     font-size: 14px;
-    color: #888;
+    color: #383838;
     text-align: center;
     margin-bottom: 5px;
 }
@@ -147,6 +152,7 @@
     .homepage .orbital {
         width: 270px;
     }
+
 }
 
 @keyframes rotateOrbital {

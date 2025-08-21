@@ -1,7 +1,6 @@
 .input-container {
     display: flex;
     width: 100%;
-    border: solid 0.5px #cacaca;
     box-sizing: border-box;
     border-radius: 6px;
     box-shadow: rgba(0, 0, 82, 0.15) 0 2px 4px;
@@ -62,16 +61,29 @@
     background-color: #cacaca;
 }
 
+.question-surprise {
+    color: #000;
+}
+
 .surprise {
     font-size: 15px;
     font-weight: 700;
     padding: 15px;
-    color: #ff8533;
+    color: #000;
     cursor: pointer;
+    text-decoration: underline;
+    transition: transform 0.2s ease;
+    display: inline-block;
 }
 
 .surprise:hover{
-    text-decoration: underline;
+    transform: scale(1.05); 
+}
+
+.error-input-empty {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #000;
 }
 
 @media (max-width: 768px) {

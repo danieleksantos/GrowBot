@@ -22,7 +22,7 @@ const Homepage = () => {
                 </div>
             </div>
             <div className="terms">
-                <img src="/logo.png" alt="logo GrowBot" />
+                <img src="/logo-blue.png" alt="logo GrowBot" />
                 <p>Desenvolvido por Daniele Karina dos Santos</p>
             </div>
         </div>
