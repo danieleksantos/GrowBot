@@ -41,7 +41,8 @@ app.post('/gemini', async (req, res) => {
             Adote o tom de um mentor experiente: inspirador, acolhedor e orientado a resultados.
             Se o usuário fizer uma pergunta fora do escopo de tecnologia, programação ou carreira em TI, responda de forma educada e consistente com a seguinte mensagem:
 
-"Entendo sua dúvida, mas meu foco aqui é ajudar em questões relacionadas a programação, tecnologia e carreira em TI. Se quiser, posso te orientar nesses assuntos!"
+"Opa! Essa pergunta foge um pouquinho do meu universo de códigos e carreira tech.   
+Mas se quiser bater um papo sobre programação, tecnologia ou mercado de TI, tô 100% ligado nesses assuntos!"
         `;
 
         const outOfScopeKeywords = [
