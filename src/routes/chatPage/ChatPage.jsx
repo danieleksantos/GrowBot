@@ -110,11 +110,30 @@ const ChatPage = () => {
         }
     };
 
-    const clear = () => {
+    const clearChat = () => {
         setValue("");
         setError("");
         setChatHistory([]);
     };
+
+    const clearFromDB = async () => {
+    try {
+        const response = await fetch(`https://growbot-h6pr.onrender.com/api/history/${userId}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            clearChat();
+            console.log("Histórico local e no banco de dados limpo.");
+        } else {
+            console.error("Falha ao limpar o histórico no banco de dados.");
+            setError("Falha ao apagar o histórico no servidor.");
+        }
+    } catch (error) {
+        console.error("Erro ao conectar com a API para limpar o histórico:", error);
+        setError("Erro ao apagar o histórico. Verifique sua conexão.");
+    }
+};
 
     return (
         <div className="chatPage">
@@ -125,9 +144,11 @@ const ChatPage = () => {
                 setValue={setValue}
                 error={error}
                 getResponse={getResponse}
-                clear={clear}
+                clearChat={clearChat}
+                clearFromDB={clearFromDB}
                 surprise={surprise}
                 isLoadingAnswerAPI={isLoadingAnswerAPI}
+                chatHistory={chatHistory}
             />
         </div>
     );

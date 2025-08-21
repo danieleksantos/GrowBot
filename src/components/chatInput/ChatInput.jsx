@@ -1,7 +1,17 @@
 import React from 'react'
 import './chatInput.css';
 
-const ChatInput = ({ value, setValue, error, getResponse, clear, surprise, isLoadingAnswerAPI }) => {
+const ChatInput = ({ 
+    value, 
+    setValue, 
+    error, 
+    getResponse, 
+    clearChat, 
+    clearFromDB,
+    surprise, 
+    isLoadingAnswerAPI,
+    chatHistory
+}) => {
     return (
         <>
             <p className="question-surprise">
@@ -15,8 +25,15 @@ const ChatInput = ({ value, setValue, error, getResponse, clear, surprise, isLoa
                     onChange={(e) => setValue(e.target.value)}
                     disabled={isLoadingAnswerAPI}
                 />
-                {!error && <button onClick={getResponse} disabled={isLoadingAnswerAPI}>Perguntar</button>}
-                {error && <button onClick={clear}>Limpar</button>}
+                
+                <button onClick={getResponse} disabled={isLoadingAnswerAPI}>Perguntar</button>
+                
+                {chatHistory && chatHistory.length > 0 && (
+                    <>
+                        <button onClick={clearChat}>Limpar Tela</button>
+                        <button onClick={clearFromDB}>Apagar do Banco</button>
+                    </>
+                )}
             </div>
             {isLoadingAnswerAPI && <p className="loading-message">Carregando...</p>}
             {error && <p>{error}</p>}

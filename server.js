@@ -51,4 +51,20 @@ app.get("/api/history/:userId", async (req, res) => {
     }
 });
 
+app.delete("/api/history/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const result = await Message.deleteMany({ userId: userId });
+        
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: "Nenhum histórico de chat encontrado para este usuário." });
+        }
+        
+        res.status(200).json({ message: "Histórico do chat limpo com sucesso." });
+    } catch (error) {
+        console.error("Erro ao limpar histórico do chat:", error);
+        res.status(500).json({ error: "Falha ao limpar o histórico do chat." });
+    }
+});
+
 app.listen(PORT, () => console.log(`Running port ${PORT}`))
