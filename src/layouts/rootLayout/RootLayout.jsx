@@ -1,3 +1,5 @@
+import React from 'react'
+import { ptBR } from '@clerk/localizations';
 import { Link, Outlet } from 'react-router-dom'
 import './rootLayout.css'
 import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
@@ -10,7 +12,7 @@ if (!PUBLISHABLE_KEY) {
 
 const RootLayout = () => {
     return (
-        <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+        <ClerkProvider publishableKey={PUBLISHABLE_KEY} localization={ptBR}>
             <div className='rootLayout'>
                 <header>
                     <Link to="/">

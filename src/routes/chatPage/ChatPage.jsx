@@ -1,3 +1,4 @@
+import React from 'react'
 import { useEffect, useState, useRef } from "react";
 import "./chatPage.css";
 import { useAuth } from "@clerk/clerk-react";
@@ -20,6 +21,27 @@ const ChatPage = () => {
             navigate("/sign-in");
         }
     }, [isLoaded, userId, navigate]);
+
+    useEffect(() => {
+        const fetchChatHistory = async () => {
+            if (isLoaded && userId) {
+                try {
+                    const response = await fetch(`http://localhost:8000/api/history/${userId}`);
+                    const history = await response.json();
+                    
+                    const formattedHistory = history.map(msg => ({
+                        role: msg.role,
+                        parts: [{ text: msg.content }]
+                    }));
+                    setChatHistory(formattedHistory);
+                } catch (error) {
+                    console.error("Erro ao buscar histórico do chat:", error);
+                }
+            }
+        };
+
+        fetchChatHistory();
+    }, [isLoaded, userId]);
 
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -50,7 +72,6 @@ const ChatPage = () => {
             return;
         }
 
-        // 1. Adiciona a pergunta do usuário ao histórico imediatamente
         setChatHistory(oldChatHistory => [...oldChatHistory, {
             role: "user",
             parts: [{ text: value }]
@@ -64,17 +85,18 @@ const ChatPage = () => {
             const options = {
                 method: 'POST',
                 body: JSON.stringify({
-                    history: chatHistory,
+                    userId, 
+                    history: chatHistory, 
                     message: userMessage
                 }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             };
+            
             const response = await fetch('http://localhost:8000/gemini', options);
             const data = await response.text();
             
-            // 2. Adiciona a resposta da IA após a requisição
             setChatHistory(oldChatHistory => [...oldChatHistory, {
                 role: "model",
                 parts: [{ text: data }]
