@@ -8,8 +8,13 @@ import { Message } from './models/Message.js';
 const PORT = 8000;
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+
+const corsOptions = {
+    origin: 'https://grow-bot.vercel.app',
+    optionsSuccessStatus: 200 
+};
+app.use(cors(corsOptions));
 
 connectDB();
 
@@ -23,9 +28,6 @@ app.post('/gemini', async (req, res) => {
     try {
         const { userId, history, message } = req.body;
 
-        // PASSO 1: LOG DA MENSAGEM RECEBIDA
-        console.log("Mensagem recebida do frontend:", message);
-        
         const systemInstruction = `
             Você é um mentor de carreira especializado em apoiar pessoas em início de jornada na área de tecnologia — sejam estudantes que estão aprendendo programação ou profissionais em transição de carreira para o setor de TI.
 
@@ -49,14 +51,8 @@ app.post('/gemini', async (req, res) => {
         const normalizedMessage = normalizeString(message);
         const isOutOfScope = outOfScopeKeywords.some(keyword => normalizedMessage.includes(keyword));
 
-        // PASSO 2: LOG DO RESULTADO DA VALIDAÇÃO
-        console.log("Mensagem normalizada:", normalizedMessage);
-        console.log("Resultado do isOutOfScope:", isOutOfScope);
-        
-        if (isOutOfScope) {
-            // PASSO 3: LOG SE A CONDIÇÃO FOR TRUE
-            console.log("A condição 'isOutOfScope' é TRUE. Enviando mensagem de erro.");
-            
+      
+        if (isOutOfScope) {            
             const outOfScopeMessage = "Entendo sua dúvida, mas meu foco aqui é ajudar em questões relacionadas a programação, tecnologia e carreira em TI. Se quiser, posso te orientar nesses assuntos!";
             
             const userMessage = new Message({
@@ -77,10 +73,7 @@ app.post('/gemini', async (req, res) => {
             
             return res.send(outOfScopeMessage);
         }
-
-        // PASSO 4: LOG SE A CONDIÇÃO FOR FALSE
-        console.log("A condição 'isOutOfScope' é FALSE. Chamando a API do Gemini.");
-        
+  
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash-latest",
             systemInstruction: systemInstruction,
