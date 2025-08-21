@@ -1,9 +1,12 @@
-import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { connectDB } from './db.js';
 import { Message } from './models/Message.js';
+import process from 'process';
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -11,7 +14,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-    origin: 'https://grow-bot.vercel.app', 
+    origin: ['http://localhost:5173', 'https://grow-bot.vercel.app'], 
     optionsSuccessStatus: 200 
 };
 app.use(cors(corsOptions));
@@ -41,8 +44,7 @@ app.post('/gemini', async (req, res) => {
             Adote o tom de um mentor experiente: inspirador, acolhedor e orientado a resultados.
             Se o usuário fizer uma pergunta fora do escopo de tecnologia, programação ou carreira em TI, responda de forma educada e consistente com a seguinte mensagem:
 
-"Opa! Essa pergunta foge um pouquinho do meu universo de códigos e carreira tech.   
-Mas se quiser bater um papo sobre programação, tecnologia ou mercado de TI, tô 100% ligado nesses assuntos!"
+"Opa! Essa pergunta foge um pouquinho do meu universo de códigos e carreira tech. Mas se quiser bater um papo sobre programação, tecnologia ou mercado de TI, tô 100% ligado nesses assuntos!"
         `;
 
         const outOfScopeKeywords = [

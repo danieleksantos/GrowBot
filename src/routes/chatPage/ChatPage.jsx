@@ -94,8 +94,8 @@ const ChatPage = () => {
             }]);
             
         } catch (apiError) {
-            console.error(apiError);
-            setError("Algo deu errado! Tente novamente mais tarde!");
+            console.error('Erro ao chamar a API do Gemini:', apiError); 
+            setError("Ops! Algo deu errado! Tente novamente mais tarde!");
         } finally {
             setIsLoadingAnswerAPI(false);
         }
@@ -124,6 +124,7 @@ const ChatPage = () => {
                 setError("Falha ao apagar o histórico no servidor.");
             }
         } catch (error) {
+            console.error(error);
             setError("Erro ao apagar o histórico. Verifique sua conexão.");
         }
     };
