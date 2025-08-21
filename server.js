@@ -82,7 +82,7 @@ app.post('/gemini', async (req, res) => {
         console.log("A condição 'isOutOfScope' é FALSE. Chamando a API do Gemini.");
         
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-pro-latest",
+            model: "gemini-1.5-flash-latest",
             systemInstruction: systemInstruction,
         });
 
