@@ -8,30 +8,89 @@
     overflow: hidden;
 }
 
-.input-container input {
+.input-container input,
+.input-container textarea {
     border: none;
     padding: 13px 14px;
     box-sizing: border-box;
     font-size: 15px;
     outline: none;
-    width: 90%;
+    flex-grow: 1; 
+    font-weight: 200;
+    resize: none; 
+    min-height: 44px; 
+    align-self: center; 
+}
+
+.input-container input::placeholder,
+.input-container textarea::placeholder {
+    color: #b4b4b4;
     font-weight: 200;
 }
 
-.input-container input::placeholder {
-    color: #cacaca;
-    font-weight: 200;
+.button-group {
+    display: flex;
 }
 
-.input-container button {
-    min-width: 10%;
+.btn {
     border: none;
-    border-left: 1px solid #cacaca;
-    background-color: #ff8533;
     font-weight: bold;
+    cursor: pointer;
+    border-left: 1px solid #cacaca;
+    transition: transform 0.2s ease;
+    padding: 13px 14px;
+}
+
+.btn-ask {
+    background-color: rgb(79, 206, 79);
+}
+
+.btn-clear-screen {
+    background-color: rgb(237, 240, 67);
+}
+
+.btn-clear-bd {
+    background-color: rgb(223, 69, 69);
+}
+
+.btn:hover {
+    transform: scale(1.05); 
+}
+
+.btn:active {
+    transform: scale(0.98); 
+    background-color: #cacaca;
+}
+
+.surprise {
+    font-size: 15px;
+    font-weight: 700;
+    padding: 15px;
+    color: #ff8533;
     cursor: pointer;
 }
 
-.input-container button:active {
-    background-color: #cacaca;
+.surprise:hover{
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .input-container {
+        flex-direction: column;
+        border-radius: 6px;
+    }
+    
+    .input-container input,
+    .input-container textarea,
+    .button-group {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .button-group .btn {
+        flex: 1; 
+        min-width: unset; 
+        font-size: 12px;
+        padding: 10px 5px; 
+    }
 }

@@ -5,13 +5,13 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { connectDB } from './db.js';
 import { Message } from './models/Message.js';
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 app.use(express.json());
 
 const corsOptions = {
-    origin: 'https://grow-bot.vercel.app',
+    origin: 'https://grow-bot.vercel.app', 
     optionsSuccessStatus: 200 
 };
 app.use(cors(corsOptions));
@@ -27,7 +27,7 @@ const normalizeString = (str) => {
 app.post('/gemini', async (req, res) => {
     try {
         const { userId, history, message } = req.body;
-
+        
         const systemInstruction = `
             Você é um mentor de carreira especializado em apoiar pessoas em início de jornada na área de tecnologia — sejam estudantes que estão aprendendo programação ou profissionais em transição de carreira para o setor de TI.
 
@@ -51,8 +51,7 @@ app.post('/gemini', async (req, res) => {
         const normalizedMessage = normalizeString(message);
         const isOutOfScope = outOfScopeKeywords.some(keyword => normalizedMessage.includes(keyword));
 
-      
-        if (isOutOfScope) {            
+        if (isOutOfScope) {
             const outOfScopeMessage = "Entendo sua dúvida, mas meu foco aqui é ajudar em questões relacionadas a programação, tecnologia e carreira em TI. Se quiser, posso te orientar nesses assuntos!";
             
             const userMessage = new Message({
@@ -73,7 +72,7 @@ app.post('/gemini', async (req, res) => {
             
             return res.send(outOfScopeMessage);
         }
-  
+ 
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash-latest",
             systemInstruction: systemInstruction,
@@ -104,38 +103,10 @@ app.post('/gemini', async (req, res) => {
 
         res.send(responseText);
     } catch (error) {
-        console.error(error);
+        console.error('Erro ao chamar a API do Gemini:', error);
         res.status(500).send("Algo deu errado! Tente novamente mais tarde!");
     }
 });
-
-app.get("/api/history/:userId", async (req, res) => {
-    try {
-        const messages = await Message.find({ userId: req.params.userId }).sort({ createdAt: 1 });
-        res.json(messages);
-    } catch (err) {
-        console.error("Erro ao buscar histórico:", err);
-        res.status(500).json({ error: "Falha ao buscar o histórico" });
-    }
-});
-
-app.delete("/api/history/:userId", async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const result = await Message.deleteMany({ userId: userId });
-        
-        if (result.deletedCount === 0) {
-            return res.status(404).json({ message: "Nenhum histórico de chat encontrado para este usuário." });
-        }
-        
-        res.status(200).json({ message: "Histórico do chat limpo com sucesso." });
-    } catch (error) {
-        console.error("Erro ao limpar histórico do chat:", error);
-        res.status(500).json({ error: "Falha ao limpar o histórico do chat." });
-    }
-});
-
-app.listen(PORT, () => console.log(`Running port ${PORT}`));
 
 app.get("/api/history/:userId", async (req, res) => {
     try {

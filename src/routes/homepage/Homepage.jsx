@@ -10,7 +10,7 @@ const Homepage = () => {
                 <h1>GrowBot</h1>
                 <h2>Esclareça todas as suas dúvidas sobre o mercado tech</h2>
                 <p>Por onde começo estudar? Quais são as fontes mais confiáveis? Onde encontro vagas? Como me preparar para entrevistas?...</p>
-                <Link to="/chat">Confira tudo AQUI</Link>
+                <Link to="/chat" className='link-action'>Confira tudo AQUI</Link>
             </div>
 
             <div className="right">

@@ -5,6 +5,7 @@ import { useAuth } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import ChatHistory from "../../components/chatHistory/ChatHistory";
 import ChatInput from "../../components/chatInput/ChatInput";
+import { getGeminiResponse, getChatHistoryFromDB, clearChatHistoryFromDB } from "../../services/api";
 
 const ChatPage = () => {
     const { userId, isLoaded } = useAuth();
@@ -24,24 +25,21 @@ const ChatPage = () => {
     }, [isLoaded, userId, navigate]);
 
     useEffect(() => {
-        const fetchChatHistory = async () => {
+        const loadChatHistory = async () => {
             if (isLoaded && userId) {
                 try {
-                    const response = await fetch(`https://growbot-h6pr.onrender.com/api/history/${userId}`);
-                    const history = await response.json();
-                    
+                    const history = await getChatHistoryFromDB(userId);
                     const formattedHistory = history.map(msg => ({
                         role: msg.role,
                         parts: [{ text: msg.content }]
                     }));
                     setChatHistory(formattedHistory);
-                } catch (error) {
-                    console.error("Erro ao buscar histórico do chat:", error);
+                } catch (loadError) {
+                    console.error("Erro ao buscar histórico do chat:", loadError);
                 }
             }
         };
-
-        fetchChatHistory();
+        loadChatHistory();
     }, [isLoaded, userId]);
 
     useEffect(() => {
@@ -84,28 +82,19 @@ const ChatPage = () => {
         setValue("");
 
         try {
-            const options = {
-                method: 'POST',
-                body: JSON.stringify({
-                    userId, 
-                    history: chatHistory, 
-                    message: userMessage
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };
-            
-            const response = await fetch('https://growbot-h6pr.onrender.com/gemini', options);
-            const data = await response.text();
+            const botResponse = await getGeminiResponse({ 
+                userId, 
+                history: chatHistory, 
+                message: userMessage 
+            });
             
             setChatHistory(oldChatHistory => [...oldChatHistory, {
                 role: "model",
-                parts: [{ text: data }]
+                parts: [{ text: botResponse }]
             }]);
             
-        } catch (error) {
-            console.error(error);
+        } catch (apiError) {
+            console.error(apiError);
             setError("Algo deu errado! Tente novamente mais tarde!");
         } finally {
             setIsLoadingAnswerAPI(false);
@@ -126,20 +115,15 @@ const ChatPage = () => {
         }
 
         try {
-            const response = await fetch(`https://growbot-h6pr.onrender.com/api/history/${userId}`, {
-                method: 'DELETE'
-            });
-
-            if (response.ok) {
+            const success = await clearChatHistoryFromDB(userId);
+            if (success) {
                 clearChat();
                 setSuccessMessage("Histórico apagado com sucesso!"); 
                 console.log("Histórico local e no banco de dados limpo.");
             } else {
-                console.error("Falha ao limpar o histórico no banco de dados.");
                 setError("Falha ao apagar o histórico no servidor.");
             }
         } catch (error) {
-            console.error("Erro ao conectar com a API para limpar o histórico:", error);
             setError("Erro ao apagar o histórico. Verifique sua conexão.");
         }
     };

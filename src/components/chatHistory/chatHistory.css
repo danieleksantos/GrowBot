@@ -8,20 +8,19 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
 
-    .bot-message {
-        background-color: #ffc9a4;
-        padding: 15px 15px 15px 35px;
-        border-radius: 20px;
-        width: 80%;
-    }
+.wrapper .bot-message {
+    background-color: #ffc9a4;
+    padding: 15px 15px 15px 35px;
+    border-radius: 20px;
+    width: 80%;
+}
 
-    .user-message {
-        background-color: #c2b4ff;
-        padding: 15px;
-        border-radius: 20px;
-        max-width: 70%;
-        align-self: flex-end;
-    }
-        
+.wrapper .user-message {
+    background-color: #c2b4ff;
+    padding: 15px;
+    border-radius: 20px;
+    max-width: 70%;
+    align-self: flex-end;
 }
