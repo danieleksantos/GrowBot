@@ -13,6 +13,7 @@ const ChatPage = () => {
     const [error, setError] = useState("");
     const [chatHistory, setChatHistory] = useState([]);
     const [isLoadingAnswerAPI, setIsLoadingAnswerAPI] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(""); 
 
     const chatEndRef = useRef(null);
 
@@ -71,6 +72,7 @@ const ChatPage = () => {
             setError("Por favor, faça uma pergunta!");
             return;
         }
+        setSuccessMessage(""); 
 
         setChatHistory(oldChatHistory => [...oldChatHistory, {
             role: "user",
@@ -114,26 +116,33 @@ const ChatPage = () => {
         setValue("");
         setError("");
         setChatHistory([]);
+        setSuccessMessage(""); 
     };
 
     const clearFromDB = async () => {
-    try {
-        const response = await fetch(`https://growbot-h6pr.onrender.com/api/history/${userId}`, {
-            method: 'DELETE'
-        });
-
-        if (response.ok) {
-            clearChat();
-            console.log("Histórico local e no banco de dados limpo.");
-        } else {
-            console.error("Falha ao limpar o histórico no banco de dados.");
-            setError("Falha ao apagar o histórico no servidor.");
+        const isConfirmed = window.confirm("Tem certeza que deseja apagar o histórico de tudo que já conversamos?");
+        if (!isConfirmed) {
+            return; 
         }
-    } catch (error) {
-        console.error("Erro ao conectar com a API para limpar o histórico:", error);
-        setError("Erro ao apagar o histórico. Verifique sua conexão.");
-    }
-};
+
+        try {
+            const response = await fetch(`https://growbot-h6pr.onrender.com/api/history/${userId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                clearChat();
+                setSuccessMessage("Histórico apagado com sucesso!"); 
+                console.log("Histórico local e no banco de dados limpo.");
+            } else {
+                console.error("Falha ao limpar o histórico no banco de dados.");
+                setError("Falha ao apagar o histórico no servidor.");
+            }
+        } catch (error) {
+            console.error("Erro ao conectar com a API para limpar o histórico:", error);
+            setError("Erro ao apagar o histórico. Verifique sua conexão.");
+        }
+    };
 
     return (
         <div className="chatPage">
@@ -150,6 +159,7 @@ const ChatPage = () => {
                 isLoadingAnswerAPI={isLoadingAnswerAPI}
                 chatHistory={chatHistory}
             />
+            {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
     );
 };

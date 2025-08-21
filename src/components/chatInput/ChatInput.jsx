@@ -31,7 +31,7 @@ const ChatInput = ({
                 {chatHistory && chatHistory.length > 0 && (
                     <>
                         <button onClick={clearChat}>Limpar Tela</button>
-                        <button onClick={clearFromDB}>Apagar do Banco</button>
+                        <button onClick={clearFromDB}>Apagar todo Histórico</button>
                     </>
                 )}
             </div>
