@@ -26,7 +26,7 @@ const ChatPage = () => {
         const fetchChatHistory = async () => {
             if (isLoaded && userId) {
                 try {
-                    const response = await fetch(`http://localhost:8000/api/history/${userId}`);
+                    const response = await fetch(`https://growbot-h6pr.onrender.com/api/history/${userId}`);
                     const history = await response.json();
                     
                     const formattedHistory = history.map(msg => ({
@@ -94,7 +94,7 @@ const ChatPage = () => {
                 }
             };
             
-            const response = await fetch('http://localhost:8000/gemini', options);
+            const response = await fetch('https://growbot-h6pr.onrender.com/gemini', options);
             const data = await response.text();
             
             setChatHistory(oldChatHistory => [...oldChatHistory, {
