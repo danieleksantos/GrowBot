@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useEffect, useState, useRef } from "react";
 import "./chatPage.css";
 import { useAuth } from "@clerk/clerk-react";
