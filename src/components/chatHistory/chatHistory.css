@@ -24,3 +24,7 @@
     max-width: 70%;
     align-self: flex-end;
 }
+
+@media (max-width: 768px) {
+    
+}

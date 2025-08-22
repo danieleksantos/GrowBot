@@ -37,10 +37,12 @@ const ChatInput = ({
 
     return (
         <>
-            <p className="question-surprise">
-                O que mais você gostaria de saber?
-                <a className="surprise" onClick={surprise} disabled={isLoadingAnswerAPI}>Surpreenda-me</a>
-            </p>
+            <div className='question'>
+                <p className="question-surprise">
+                    O que mais você gostaria de saber?
+                    <a className="surprise" onClick={surprise} disabled={isLoadingAnswerAPI}>Surpreenda-me</a>
+                </p>
+            </div>
             <div className="input-container">
                <textarea
                     ref={textareaRef}

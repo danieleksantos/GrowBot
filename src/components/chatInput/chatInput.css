@@ -1,3 +1,7 @@
+.question {
+ margin: 0 0 -10px 0;
+}
+
 .input-container {
     display: flex;
     width: 100%;
@@ -45,6 +49,7 @@
     border-left: 1px solid #cacaca;
     transition: transform 0.2s ease;
     padding: 13px 14px;
+    color: #000;
 }
 
 .btn-ask {
@@ -105,11 +110,20 @@
 }
 
 @media (max-width: 768px) {
+    .question {
+        text-align: center;
+    }
+
+    .surprise {
+        margin-top: -10px;
+    }
+
     .input-container {
         flex-direction: column;
         border-radius: 6px;
+        box-shadow: none;
     }
-    
+
     .input-container input,
     .input-container textarea,
     .button-group {
