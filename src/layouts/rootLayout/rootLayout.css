@@ -15,7 +15,6 @@ header {
     padding: 10px 64px;
 }
 .rootLayout {
-    /* height: 100vh; */
     display: flex;
     flex-direction: column;
 }
