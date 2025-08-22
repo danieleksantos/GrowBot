@@ -1,5 +1,5 @@
 
-
+![GrowBot Logo](./public/logo.png)
 # 🤖 GrowBot
 
 ## Sobre o Projeto
@@ -69,7 +69,11 @@ O projeto foi construído de forma incremental, com cada versão adicionando e r
 -   **v.4 - Feedback Visual**: Inclusão de um indicador de carregamento para informar ao usuário que a IA está processando a resposta.
     
 -   **Merge na `main`**: A versão final (v.4) foi mesclada na branch `main`, incorporando refinamentos e melhorias significativas de UX/UI, resultando em um layout mais agradável, responsivo e acessível.
-    
+
+## Acessando e Testando a Aplicação em Produção
+
+Você pode acessar e testar a versão mais recente do GrowBot diretamente na URL de produção:
+📎 [https://grow-bot.vercel.app/](https://grow-bot.vercel.app/ )
 
 ## Como Rodar o Projeto
 
