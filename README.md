@@ -1,69 +1,144 @@
+# GrowBot
 
-# 🤖 GrowBot v.1
+## Sobre o Projeto
 
-Aplicação web que simula um chat com inteligência artificial, integrando com o **Gemini (Google AI)**.
+O **GrowBot** é um assistente virtual inteligente projetado para guiar pessoas iniciantes e aspirantes na jornada do mercado de tecnologia. Desenvolvido para responder a dúvidas comuns de forma rápida e precisa, o GrowBot utiliza o poder da inteligência artificial para fornecer insights sobre como iniciar uma carreira, quais tecnologias estudar, onde encontrar oportunidades de emprego e muito mais.
 
-Este projeto faz parte de um **Desafio Técnico – Pessoa Desenvolvedora de Software Trainee**.
+Este projeto visa simplificar o processo de busca por informações, centralizando o conhecimento em uma interface de chat amigável e acessível. A conversa é fluida e intuitiva, proporcionando uma experiência de usuário eficiente e agradável.
 
-A versão atual (**GrowBot v.1**) entrega a base funcional do chat com front-end em React e integração com backend local.
+## Tecnologias Utilizadas
 
----
+O GrowBot foi construído com um conjunto de tecnologias modernas e robustas, garantindo uma aplicação escalável, responsiva e segura.
 
-### 📌 Funcionalidades atuais (v.1)
+-   **Frontend**:
+    
+    -   **React**: Biblioteca JavaScript para construção da interface de usuário.
+        
+    -   **React Router**: Gerenciamento de rotas e navegação.
+        
+    -   **CSS**: Estilização e design responsivo.
+        
+    -   **Clerk**: Serviço de autenticação para gerenciar usuários.
+        
+-   **Backend**:
+    
+    -   **Node.js**: Ambiente de execução para o servidor.
+        
+    -   **Express**: Framework web para construir a API.
+        
+    -   **Google Gemini API**: Modelo de linguagem de IA para as respostas do chatbot.
+        
+    -   **MongoDB**: Banco de dados NoSQL para armazenamento de histórico de chat.
+        
+-   **Deployment**:
+    
+    -   **Vercel**: Plataforma para implantação do frontend.
+        
+    -   **Render**: Plataforma para implantação do backend.
+        
 
-- Interface de chat simples com envio de perguntas.
-- Integração com o Gemini para obter respostas.
-- Histórico de mensagens exibido em tela.
-- Renderização das respostas em **Markdown** para melhor visualização.
-- Layout responsivo básico.
+## Recursos (Features)
 
----
+-   **Chat em Tempo Real**: Interação fluida e instantânea com o chatbot.
+    
+-   **Design Responsivo Otimizado para Mobile**: Layout adaptável que garante uma experiência de uso perfeita em dispositivos móveis, tablet e desktop.
+    
+-   **Respostas Otimizadas por IA**: O modelo de IA é configurado com um contexto específico para o mercado de tecnologia, garantindo respostas precisas e contextualizadas, otimizadas para o público iniciante.
+    
+-   **Histórico de Conversa**: As conversas são salvas no banco de dados para que os usuários possam acessá-las a qualquer momento.
+    
+-   **Autenticação de Usuário**: Acesso seguro com autenticação de login/registro gerenciada pelo Clerk.
+    
+-   **Interface Intuitiva**: Design moderno e fácil de usar.
+    
+-   **Botão 'Surpreenda-me'**: Opção de gerar perguntas aleatórias para explorar tópicos diversos.
+    
 
-### 🚀 Tecnologias utilizadas
+## Histórico de Desenvolvimento
 
-- **Frontend:** React + Vite
-- **Estilização:** CSS puro
-- **Integração AI:** API Gemini (via backend Node.js)
-- **Controle de versão:** Git + GitHub
+O projeto foi construído de forma incremental, com cada versão adicionando e refinando novas funcionalidades:
 
----
+-   **v.1 - Chat Funcional**: Implementação do chat básico, permitindo a comunicação inicial entre o usuário e o bot.
+    
+-   **v.2 - Autenticação**: Adição de um sistema de autenticação para gerenciar usuários e garantir o histórico de conversas individual.
+    
+-   **v.3 - Persistência de Histórico**: Integração com **MongoDB** para salvar o histórico de mensagens, permitindo que os usuários continuem suas conversas.
+    
+-   **v.4 - Feedback Visual**: Inclusão de um indicador de carregamento para informar ao usuário que a IA está processando a resposta.
+    
+-   **Merge na `main`**: A versão final (v.4) foi mesclada na branch `main`, incorporando refinamentos e melhorias significativas de UX/UI, resultando em um layout mais agradável, responsivo e acessível.
+    
 
-### 🛠️ Como rodar o projeto localmente
+## Como Rodar o Projeto
 
-#### 1. Clonar o repositório
+Siga estes passos para configurar e executar o projeto em seu ambiente local.
 
+### Pré-requisitos
 
-```bash 
-git clone git clone https://github.com/danieleksantos/GrowBot.git
-cd GrowBot
+Certifique-se de que você tenha o Node.js e o npm (ou Yarn) instalados em sua máquina.
+
+### Configuração
+
+1.  Clone o repositório:
+    
+    ```Bash
+    git clone https://github.com/danieleksantos/GrowBot.git
+    cd GrowBot
+    ```
+    
+2.  Instale as dependências:
+    
+    ```Bash
+    npm install
+    ```
+    
+3.  Configure as variáveis de ambiente. Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
+    
+    ```Bash
+    REACT_APP_GEMINI_API_KEY="SUA_CHAVE_DE_API_GEMINI"
+    REACT_APP_CLERK_PUBLISHABLE_KEY="SUA_CHAVE_PUBLICAVEL_CLERK"
+    REACT_APP_CLERK_SECRET_KEY="SUA_CHAVE_SECRETA_CLERK"
+    ```
+    
+4.  Execute o projeto:
+    ```Bash
+    npm start
+    ```
+    
+    O aplicativo será executado em [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000 "null").
+    
+
+## Estrutura do Projeto
+
+```
+/GrowBot
+|-- public/
+|-- src/
+|   |-- components/
+|   |   |-- chatHistory/
+|   |   |-- chatInput/
+|   |   `-- ...
+|   |-- pages/
+|   |   |-- chatPage/
+|   |   |-- homePage/
+|   |   `-- ...
+|   |-- services/
+|   |   |-- api.js  (Lógica para comunicação com a API)
+|   |-- App.js
+|   |-- index.js
+|   |-- ...
+|-- .env.local
+|-- package.json
+`-- README.md
+
 ```
 
-#### 2. Instalar dependências
+## Contribuição
 
-```Bash
-npm install
-```
-#### 3. Rodar o frontend
-```Bash
-npm run dev
-```
-O projeto estará disponível em: http://localhost:5173
+Contribuições são bem-vindas! Se você encontrar um bug, tiver uma sugestão de melhoria ou quiser adicionar um novo recurso, sinta-se à vontade para abrir uma _issue_ ou enviar um _pull request_.
+<br>
+<br>
+<br>
 
-#### 4. Rodar o backend
-O backend é responsável por intermediar as chamadas à API do Gemini.  
-Use **nodemon** para hot reload:
-```Bash
-npx nodemon server.js
-```
-Por padrão, a API responde em http://localhost:8000/gemini.
 
-### 🌱 Próximas versões (branches futuras)
-O projeto será evoluído em novas branches, até chegar na entrega final do desafio:
-
-- v.2 – Autenticação simples: Login com nome de usuário para separar histórico por pessoa.
-
-- v.3 – Persistência de histórico: Salvar mensagens no banco de dados (MongoDB ou PostgreSQL).
-
-- v.4 – Feedback visual: Indicador de carregamento enquanto a IA responde.
-
-- v.5 – Melhorias de UX/UI: Layout mais agradável, responsivo e acessível. Suporte a tema escuro/claro.
+Desenvolvido por **Daniele Karina dos Santos**.
