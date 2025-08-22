@@ -72,8 +72,7 @@ O projeto foi construído de forma incremental, com cada versão adicionando e r
 ## 🎨 Preview da Aplicação
 
 ![Tela de Homepage](./public/prev-home.png)
-![Tela de Chat](./public/prev-chat.png)
-![Mobile](./public/prev-mobile.gif)
+![Mobile](./public/previ-mobile.gif)
 
 ## Acessando e Testando a Aplicação em Produção
 
