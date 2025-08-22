@@ -1,6 +1,5 @@
 
-![GrowBot Logo](./public/logo.png)
-# 🤖 GrowBot
+<img src="./public/logo.png" alt="GrowBot Logo" width="200"/>
 
 ## Sobre o Projeto
 
@@ -69,6 +68,12 @@ O projeto foi construído de forma incremental, com cada versão adicionando e r
 -   **v.4 - Feedback Visual**: Inclusão de um indicador de carregamento para informar ao usuário que a IA está processando a resposta.
     
 -   **Merge na `main`**: A versão final (v.4) foi mesclada na branch `main`, incorporando refinamentos e melhorias significativas de UX/UI, resultando em um layout mais agradável, responsivo e acessível.
+
+## 🎨 Preview da Aplicação
+
+![Tela de Homepage](.public/prev-home.png)
+![Tela de Chat](./public/prev-chat.png)
+![Mobile](./public/prev-mobile.gif)
 
 ## Acessando e Testando a Aplicação em Produção
 
