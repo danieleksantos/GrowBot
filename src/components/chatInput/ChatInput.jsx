@@ -6,6 +6,7 @@ const ChatInput = ({
     setValue, 
     error, 
     getResponse, 
+    clearError,
     clearChat, 
     clearFromDB,
     surprise, 
@@ -13,7 +14,6 @@ const ChatInput = ({
     chatHistory
 }) => {
     const textareaRef = useRef(null);
-
     const handleResize = () => {
         const textarea = textareaRef.current;
         if (textarea) {
@@ -42,12 +42,17 @@ const ChatInput = ({
                 <a className="surprise" onClick={surprise} disabled={isLoadingAnswerAPI}>Surpreenda-me</a>
             </p>
             <div className="input-container">
-                <textarea
+               <textarea
                     ref={textareaRef}
                     rows="1"
                     value={value}
-                    placeholder="O que é JavaScript?"
-                    onChange={(e) => setValue(e.target.value)}
+                    placeholder={!isLoadingAnswerAPI && !value ? "O que é JavaScript?" : ""}
+                    onChange={(e) => {
+                        setValue(e.target.value)
+                        if (error) {
+                            clearError()
+                        }
+                    }}                    
                     onKeyDown={handleKeyDown}
                     disabled={isLoadingAnswerAPI}
                 />
@@ -69,7 +74,7 @@ const ChatInput = ({
                     )}
                 </div>
             </div>
-            {isLoadingAnswerAPI && <p className="loading-message">Carregando...</p>}
+            {isLoadingAnswerAPI && <p className="loading-message">Por favor, aguarde...</p>}
             {error && <p className='error-input-empty'>{error}</p>}
         </>
     );

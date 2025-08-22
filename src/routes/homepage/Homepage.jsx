@@ -5,7 +5,7 @@ import './homepage.css'
 const Homepage = () => {
     return (
         <>
-            <div className='homepage'>
+            <main className='homepage'>
                 <img src="/orbital.png" alt="orbital image" className='orbital'/>
                 <div className="left">
                     <h1>GrowBot</h1>
@@ -23,11 +23,11 @@ const Homepage = () => {
                     </div>
                 </div>
                 
-            </div>
-            <div className="terms">
+            </main>
+            <footer className="terms">
                 <img src="/logo-blue.png" alt="logo GrowBot" />
                 <p>Desenvolvido por Daniele Karina dos Santos</p>
-            </div>
+            </footer>
         </>
         
     )

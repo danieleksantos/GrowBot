@@ -19,12 +19,19 @@
     resize: none; 
     min-height: 44px; 
     align-self: center; 
+    background-color: #fff;
+
 }
 
 .input-container input::placeholder,
 .input-container textarea::placeholder {
     color: #b4b4b4;
     font-weight: 200;
+}
+
+.input-container textarea:disabled {
+    background-color: #fff;
+    cursor: not-allowed; 
 }
 
 .button-group {
@@ -52,8 +59,14 @@
     background-color: rgb(223, 69, 69);
 }
 
-.btn:hover {
+.btn:hover:not(:disabled) {
     transform: scale(1.05); 
+}
+
+.btn-ask:disabled {
+    background-color: #a0a0a0; 
+    cursor: not-allowed;
+    opacity: 0.8;
 }
 
 .btn:active {
@@ -83,6 +96,11 @@
 .error-input-empty {
     margin-top: 10px;
     font-weight: bold;
+    color: #000;
+}
+.loading-message{
+    margin-top: 5px;
+    font-size: 12px;
     color: #000;
 }
 

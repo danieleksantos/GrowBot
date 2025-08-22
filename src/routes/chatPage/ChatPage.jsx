@@ -65,6 +65,10 @@ const ChatPage = () => {
         setValue(randomValue);
     };
 
+    const clearError = () => {
+        setError("");
+    };
+
     const getResponse = async () => {
         if (!value) {
             setError("Por favor, faça uma pergunta!");
@@ -138,6 +142,7 @@ const ChatPage = () => {
                 setValue={setValue}
                 error={error}
                 getResponse={getResponse}
+                clearError={clearError} 
                 clearChat={clearChat}
                 clearFromDB={clearFromDB}
                 surprise={surprise}
