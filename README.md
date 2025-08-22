@@ -1,4 +1,6 @@
-# GrowBot
+
+
+# 🤖 GrowBot
 
 ## Sobre o Projeto
 
@@ -111,25 +113,50 @@ Certifique-se de que você tenha o Node.js e o npm (ou Yarn) instalados em sua m
 ## Estrutura do Projeto
 
 ```
-/GrowBot
-|-- public/
-|-- src/
-|   |-- components/
-|   |   |-- chatHistory/
-|   |   |-- chatInput/
-|   |   `-- ...
-|   |-- pages/
-|   |   |-- chatPage/
-|   |   |-- homePage/
-|   |   `-- ...
-|   |-- services/
-|   |   |-- api.js  (Lógica para comunicação com a API)
-|   |-- App.js
-|   |-- index.js
-|   |-- ...
-|-- .env.local
-|-- package.json
-`-- README.md
+Directory structure:
+└── danieleksantos/GrowBot/
+	└── README.md
+	└── db.js
+	└── eslint.config.js
+	└── index.html
+	├── models
+		└── Message.js
+	└── nodemon.json
+	└── package-lock.json
+	└── package.json
+	├── public
+	├── src
+		├── assets
+		├── components
+		│   ├── chatHistory
+			    └── ChatHistory.jsx
+			    └── chatHistory.css
+		    ├── chatInput
+			    └── ChatInput.jsx
+			    └── chatInput.css
+		├── layouts
+		│   ├── rootLayout
+			    └── RootLayout.jsx
+			    └── rootLayout.css
+		└── main.jsx
+		├── routes
+		│   ├── chatPage
+			    └── ChatPage.jsx
+			    └── chatPage.css
+		    ├── homepage
+			    └── Homepage.jsx
+			    └── homepage.css
+		    ├── signInPage
+			    └── SignInpage.jsx
+			    └── signInPage.css
+		    ├── signUpPage
+			    └── SignUpPage.jsx
+			    └── signUpPage.css
+		├── services
+		    └── api.js
+		└── vercel.json
+		└── vite.config.js
+
 
 ```
 
